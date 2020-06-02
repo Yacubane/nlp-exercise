@@ -11,33 +11,35 @@ with open("api.txt", encoding='utf-8') as file:
 genius = lyricsgenius.Genius(api_key)
 
 
-discopolos = ["Przez twe oczy zielone", "Miłość w Zakopanem", "Żono moja", "Nasza jest noc",
-"Kochana wierzę w miłość", "Prawdziwa miłość to ty", "Królowa jednej nocy", "Jesteś szalona",
-"Wolność moja jedyna", "Miałaś 18 lat", "Dlaczego ty mi w głowie zawróciłaś",
-"Lubisz to lubisz", "Chce się żyć", "Wymarzona", "Miód malina", "Dziewczyna z sąsiedniej ulicy",
-"Tylko ona jedyna", "Tańczę z nim do rana", "Niespotykany kolor oczy", "Weselny klimat",
-"Ona tańczy dla mnie", "Zabrałaś serce moje", "Zakochany klaun", "Pokaż jak się kręcisz",
- "Bez siebie", "Ona buja sie kozacko", "Rozpieszczona dama", "Dam jej biały welon i obrączki dwie",
- "Majteczki w kropeczki", "Małolatki", "Moja dama", "Ogród pełen róż", "Zwariowana noc", "Mama ostrzegała",
- "Ona by tak chciała", "Skradnę cię", "Więc kochaj", "Gdzie prywatki te", "Cyganeczka Zosia",
- "Niewiara", "Kasiu, Kasieńko"]
+discopolos = ["Bez siebie", "Gdzie prywatki te", "Jesteś szalona", "Małolatki", "Mama ostrzegała",
+"Miałaś 18 lat", "Miłość w Zakopanem", "Miód malina", "Niewiara","Ona tańczy dla mnie",
+"Przez twe oczy zielone", "Tylko ona jedyna", "Wymarzona", "Blondyneczko", "Gwiazda",
+"Miałaś co chciałaś", "Żono moja", "Ruda tańczy jak szalona", "Co ty mi dasz",
+"Królowa nocy", "Życie to są chwile", "Inna dziewczyna", "Łobuz", "Ostatni dzień ostatnia noc",
+"Filmowa miłość", "Tylko ty", "Straciłaś cnotę", "Czerwone i bure", "Lato w kołobrzegu",
+"Ciało do ciała", "Kochana uwierz mi", "Przekorny los", "Gdzie jesteś gdzie", "Pragnienie miłości",
+"Kochana wierzę w miłość", "Kasiu Kasieńko", "Nie ma mocnych na Mariolę", "Piękna młoda",
+"Niespotykany kolor", "Do białego rana", "O tobie kochana", "O ela ela", "Sexi lala",
+"Pokaż jak się kręcisz", "Jagódka"]
 
 
-metals = ["Szalony ikar", "Kiedy umieram", "Wyciągam swoją dłoń", "Noce szatana", "Pani Panna", "Król Olch",
-"Dziewczyna z kebabem", "Pani Jeziora", "Kocica", "Bramy żądz", "Spółka", "Bez podtekstów", 
-"Ewolucja albo śmierć", "Koń na białym rycerzu", "Kto jest winien?", "Niepowodzenie", "Nim stanie się tak",
-"Nie tamta już", "Wilcza jagoda", "Wspomnienia jak relikwie", "Figlarz bugi", "Zdrajca metalu", "Zanurzam się",
-"Niechaj stanie sie dzień", "Śladem krwi", "Na dnie wielkiej góry", "Imperium uboju", "Niewolność", 
-"Labirynt fauna", "Strasznik", "Pomiędzy niebem a piekłem", "Masz mnie wampirze", "Głos z ciemności", "Śpisz jak kamień",
-"Autystyczny", "Loża szyderców", "Krzyk kamieni", "Apokalipsa trwa", "Moje ostatnie tchnienie", "Herezja doskonała",
-"Legiony śmierci", "ŚmierciŚmiech", "Granica rozsądku", "Zerwane więzi", "Synowie ognia"]
+metals = ["Apokalipsa trwa", "Autystyczny", "Bez podtekstów", "Bramy żądz", "Ewolucja albo śmierć",
+"Figlarz bugi", "Głos z ciemności", "Granica rozsądku", "Herezja doskonała", "Imperium uboju",
+"Kiedy umieram", "Kocica", "Koń na białym rycerzu", "Król Olch", "Krzyk kamieni", "Labirynt fauna",
+"Legiony śmierci", "Loża szyderców", "Masz mnie wampirze", "Moje ostatnie tchnienie",
+"Na dnie wielkiej góry", "Nie tamta już", "Niechaj stanie sie dzień", "Niepowodzenie", 
+"Nim stanie się tak", "Noce szatana", "Pani Jeziora", "Pomiędzy niebem a piekłem",
+"Śladem krwi", "ŚmierciŚmiech", "Śpisz jak kamień", "Spółka", "Strasznik", "Synowie ognia",
+"Szalony ikar", "Wilcza jagoda", "Wspomnienia jak relikwie", "Wyciągam swoją dłoń",
+"Zanurzam się", "Zdrajca metalu", "Zerwane więzi", "Zmartwychwstanie", "Ona jest zła", "Legenda",
+"Niewesołowski", "Osiem", "Kim"]
 
 
 def filter_lyrics(lyrics):
     final_lines = []
     lyrics = lyrics.split('\n')
     for line in lyrics:
-        if len(line) > 15 and len(line) < 50 and re.match(r'^[^\[\]\<\>\_\:]+$', line):
+        if len(line) > 10 and len(line) < 50 and re.match(r'^[^\[\]\<\>\_\:]+$', line):
             final_lines.append(line)
     return final_lines
 
@@ -60,12 +62,13 @@ def merge_lines_from_dir(type):
         with open(f"{type}/{filename}", encoding='utf-8') as file:
             for line in file:
                 line = line.rstrip('\r\n').replace(';', '')
-                if len(line) > 5:
+                if len(line) > 10:
                     lines.append(f"{line};{type}")
+    print(f"There are {len(lines)} lines with type {type}")
     return lines
 
-# download(discopolos, "discopolo")
-# download(metals, "metal")
+download(discopolos, "discopolo")
+download(metals, "metal")
 
 all_lines = []
 all_lines.append("text;class")
